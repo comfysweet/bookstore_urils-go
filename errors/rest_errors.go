@@ -1,4 +1,4 @@
-package rest_errors
+package errors
 
 import (
 	"errors"
@@ -33,10 +33,14 @@ func NewNotFoundError(message string) *RestErr {
 }
 
 func NewInternalServiceError(message string, err error) *RestErr {
-	return &RestErr{
+	result := &RestErr{
 		Message: message,
 		Status:  http.StatusInternalServerError,
 		Error:   "internal_server_error",
 		Causes:  []interface{}{err.Error()},
 	}
+	if err != nil {
+		result.Causes = append(result.Causes, err.Error())
+	}
+	return result
 }

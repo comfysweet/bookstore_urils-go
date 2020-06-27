@@ -1,4 +1,4 @@
-package rest_errors
+package errors
 
 import (
 	"github.com/stretchr/testify/assert"
